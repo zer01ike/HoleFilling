@@ -22,7 +22,7 @@ class warping():
         warping_depth_image = np.zeros((height, width, 1), np.uint8)
         for i in range(0, 256):
             A = i * (knear / 64 + kfar / 16) / 255
-            h = -eye_seperation * Npix * (A - kfar / 16) / view_distance
+            h = - eye_seperation * Npix * (A - kfar / 16) / view_distance
             table.append(int(h / 2))
         for i in range(0, height):
             for j in range(0, width):
@@ -42,6 +42,7 @@ class warping():
                         warping_image[i + 1][j + shift - S - i][s] = TexturedImage[i, j][s]
                         warping_image[i+1][j-i] = 200
                     warping_depth_image[i + 1][j + shift - S - i] = DepthedImage[i, j]
+                    # the 255 means it is the nearest depth to the ground.
                     warping_depth_image[i + 1][j - i] = 255
 
         return warping_image, warping_depth_image
