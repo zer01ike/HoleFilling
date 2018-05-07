@@ -28,6 +28,7 @@ class DepthFilling() :
             for j in range(w_start,w_end,int(WindowSize)):
                 hole_count = 0
                 sample = np.zeros((WindowSize * WindowSize, 2))
+                sample_1d = np.zeros(WindowSize*WindowSize)
                 # (i,j) is the center of the M*M area
                 # get every value in this area and using K-means to cluster the min and the max
 
@@ -38,22 +39,26 @@ class DepthFilling() :
                             hole_count +=1
                         sample[height_count * WindowSize + width_count][0] = DepthImage[temp_i, temp_j]
                         sample[height_count * WindowSize + width_count][1] = DepthImage[temp_i, temp_j]
+                        sample_1d[height_count * WindowSize + width_count] = DepthImage[temp_i, temp_j]
                         width_count += 1
                     width_count = 0
                     height_count += 1
                 height_count = 0
 
                 sample_without_hole = np.zeros((sample.size-hole_count,2))
+                sample_without_hole_1d = np.zeros(sample.size-hole_count)
                 count_without_hole = 0
                 for x in range(0,int(sample.size/2)):
                     if sample[x][0] != 255 :
                         sample_without_hole[count_without_hole][0] = sample[x][0]
                         sample_without_hole[count_without_hole][1] = sample[x][1]
+                        sample_without_hole_1d[count_without_hole]= sample[x][0]
                         count_without_hole+=1
 
                 est =  KMeans(2)
-                est.fit(sample_without_hole)
+                est.fit(sample_without_hole_1d.reshape(-1,1))
                 center = est.cluster_centers_
+                print (center)
                 if center[1][0] > center[0][0] :
                     c_min = center[0][0]
                 else:
@@ -70,24 +75,24 @@ class DepthFilling() :
     def testKmeans(self,DepthImage):
         height, width = DepthImage.shape
         #print(height,width,DepthImage[int(height/2), int(width/2)])
-        sample=np.zeros((width*height,2))
+        sample=np.zeros(width*height)
         for i in range(0, height):
             for j in range(0, width):
                 #calcute the hole image's min and max
-                sample[i*height+j][0] = DepthImage[i,j]
-                sample[i * height + j][1] = DepthImage[i, j]
+                sample[i*height+j] = DepthImage[i,j]
         print(sample)
         est = KMeans(2)
-        est.fit(sample)
+        est.fit(sample.reshape(-1,1))
         pred = est.cluster_centers_
 
-        c_min = pred[1][0]
-        c_max = pred[0][0]
+        print(pred)
+
+        c_min = pred[1] if pred[1]<pred[0] else pred[0]
 
 
         for i in range(0, height):
             for j in range(0, width):
-                if DepthImage[i, j] == 255 :
+                if DepthImage[i, j] >= 250 :
                     DepthImage[i, j] = int(DepthImage[int(height/2), int(width/2)]) if DepthImage[int(height/2), int(width/2)]<=c_min else int(c_min)
 
         return DepthImage
