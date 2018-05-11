@@ -17,6 +17,7 @@ class DepthFilling() :
         self.depthimage = depthimage
         self.windowsize = windowsize
         self.stepsize = stepsize
+        self.cmin_list = []
     def depthfill(self):
 
         # step 1: choose i
@@ -90,7 +91,7 @@ class DepthFilling() :
                 return i-1
             i += 1
 
-    def get_kernel_content(self, i,j):
+    def get_kernel_content(self, i, j):
         # counting the
         vertical_count = 0
         horizontal_count = 0
@@ -136,6 +137,7 @@ class DepthFilling() :
             center = est.cluster_centers_
 
             c_min = center[1] if center[1] < center[0] else center[0]
+            self.cmin_list.append(c_min)
             # print(c_min)
             for kernel_v in range(i - half, i + half + 1):
                 for kernel_h in range(j - half, j + half + 1):
@@ -143,6 +145,8 @@ class DepthFilling() :
                         self.depthimage[kernel_v, kernel_h] = int(self.depthimage[i, j]) if self.depthimage[i, j] <= c_min else int(
                             c_min)
 
+    def get_cmin(self):
+        return self.cmin_list
 
     # test function...
     def testKmeans(self,depthimage):
@@ -169,6 +173,8 @@ class DepthFilling() :
                     depthimage[i, j] = int(depthimage[int(height/2), int(width/2)]) if depthimage[int(height/2), int(width/2)]<=c_min else int(c_min)
 
         return depthimage
+
+
 
 
 
