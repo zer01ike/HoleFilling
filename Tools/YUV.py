@@ -5,7 +5,7 @@ import struct
 import cv2
 import numpy as np
 
-class YUVTools():
+class YUVtools():
 
     def setParamters(self, height=0,width=0,frame =0):
         self.height = height

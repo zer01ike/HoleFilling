@@ -11,13 +11,14 @@ from Warping import Warping
 # cv2.waitKey(0)
 # cv2.destroyAllWindows( )
 
-DepthedImg = cv2.imread('../DataSet/depth/d_1.png', 0)
-TexturedImg = cv2.imread('../DataSet/rgb/r_1.png', 1)
+DepthedImg = cv2.imread('../DataSet/testSequence_depth/0.jpg', 0)
+TexturedImg = cv2.imread('../DataSet/testSequence/0.jpg', 1)
+cv2.imshow('orginal_text',TexturedImg)
 
 W1d = Warping.warping()
 output_txt_image, output_depth_image = W1d.warpingwith1D(TexturedImg, DepthedImg)
 cv2.imshow('image', output_txt_image)
 cv2.imshow('depth', output_depth_image)
-cv2.imwrite('d_warping_1.jpg',output_depth_image)
+cv2.imwrite('ballons_d_warping_0.jpg',output_depth_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
