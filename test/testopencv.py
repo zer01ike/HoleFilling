@@ -3,8 +3,8 @@ import sys
 
 sys.path.append("..")
 from Warping import Warping
-
-# img =  cv2.imread("test.jpg", 0)
+#
+# img =  cv2.imread("test.jpg", 1)
 # px = img[2,2]
 # print(px)
 # cv2.imshow('image', img)
