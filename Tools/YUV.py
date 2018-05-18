@@ -60,7 +60,7 @@ class YUVtools():
         for i in range(0,self.frame):
             if self.RGB_video == [] :
                 return 0
-            cv2.imwrite(path+str(i)+'.jpg',self.RGB_video[i])
+            cv2.imwrite(path+str(i)+'.bmp',self.RGB_video[i])
             count +=1
         return count
 
