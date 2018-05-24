@@ -20,6 +20,16 @@ class warping():
         height, width, channels = TexturedImage.shape
         warping_image = np.zeros((height, width, 3), np.uint8)
         warping_depth_image = np.zeros((height, width, 1), np.uint8)
+
+        hole_value =255
+
+        #initial the wapring_image and i's associated depth map
+        for i in range(0, height):
+            for j in range(0,width):
+                for channel in range(0,3):
+                    warping_image[i][j][channel] = hole_value
+                warping_depth_image[i][j] = hole_value
+
         for i in range(0, 256):
             A = i * (knear / 64 + kfar / 16) / 255
             h = - eye_seperation * Npix * (A - kfar / 16) / view_distance
@@ -32,18 +42,18 @@ class warping():
                 if j + shift - S >= 0 and j + shift - S < width:
                     for s in range (0,3):
                         warping_image[i][j + shift - S][s] = TexturedImage[i, j][s]
-                        #make the disclosure area with RGB = (200,200,200)
-                        warping_image[i][j] = 200
+                        # #make the disclosure area with RGB = (200,200,200)
+                        # warping_image[i][j] = 200
                     warping_depth_image[i][j + shift - S] = DepthedImage[i, j]
                     # make the  of the area of the
-                    warping_depth_image[i][j]= 255
+                    # warping_depth_image[i][j]= 255
                 elif j + shift - S >= 0 and j + shift - S > width:
                     for s in range (0,3):
                         warping_image[i + 1][j + shift - S - i][s] = TexturedImage[i, j][s]
-                        warping_image[i+1][j-i] = 200
+                        # warping_image[i+1][j-i] = 200
                     warping_depth_image[i + 1][j + shift - S - i] = DepthedImage[i, j]
                     # the 255 means it is the nearest depth to the ground.
-                    warping_depth_image[i + 1][j - i] = 255
+                    # warping_depth_image[i + 1][j - i] = 255
 
         return warping_image, warping_depth_image
 

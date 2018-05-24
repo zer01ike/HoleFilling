@@ -6,6 +6,7 @@ class Initial:
     # this is the laplacian function to initial the hole of a warpped image which the hole size less than 50 pixel
     def laplacian(self,TexturedImage,hole_value):
         self.height, self.width, channel= TexturedImage.shape
+        # need to be changed!!!!TODO: using Hole_info to get hole information
         for i in range(0, self.height):
             for j in range(0,self.width):
                 if (TexturedImage[i,j] == hole_value).all() :

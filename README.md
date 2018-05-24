@@ -2,6 +2,7 @@
 - [x] Warping Process
 - [x] Detph Fill
 - [x] Sprite Update
+    -[ ] Remember the hole location
 - [ ] Image Update
 - [x] Initial Fill
 - [ ] Texture Refine
@@ -48,7 +49,8 @@ Then just do a judge function to change the i's value. If it is big than `C_min`
 Need to be done 
 
 ## step 5
-initial Filling contains two method, filling small holes just to using Laplace equation to fill. Fill large hole is using author's previous work( :sob: **I Don't reproduce this work **)
+initial Filling contains two method, filling small holes just to using Laplace equation to fill. Fill large hole is using author's previous work( :sob: **I don't reproduce this work**)
 
 ## step 6
 Texture refinement need to be done 
+
