@@ -150,7 +150,7 @@ class DepthFilling() :
 
     def get_median_cmin(self):
         narray = np.array(self.cmin_list)
-        return np.mean(narray)
+        return np.median(narray)
 
     # test function...
     def testKmeans(self,depthimage):

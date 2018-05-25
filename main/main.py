@@ -7,6 +7,7 @@ import numpy as np
 from InitialHoleFilling import initial
 from Tools import Hole_info
 from Sprite import UpdateImage
+from Refine import TextureRefine
 import os
 
 yuv_depth_path = "../DataSet/yuv/depth/BookArrival_Cam08_Depth.yuv"
@@ -108,7 +109,15 @@ def updateImage(Depth_List,Texture_List,frame):
 
 
 def refineImage():
-    pass
+    hole = np.array([255, 255, 255])
+    holeLoc = Hole_info.Hole(saved_wapring_texture_path + Texture_List[0], hole)
+    holeLoc.findLoc()
+    HoleList = holeLoc.getLoc()
+    a = TextureRefine.TextureRefine(saved_wapring_texture_path+Texture_List[0],saved_initial_texture_path+Texture_List[0],saved_depthfill_path+Depth_List[0],HoleList)
+    result = a.updateImage(9)
+    cv2.imwrite("test_final.bmp",result)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     Depth_List, Texture_List = ReadImagetoList()
@@ -128,5 +137,7 @@ if __name__ == '__main__':
     #updateImage(Depth_List,Texture_List,frame)
 
     #step 6
-    initallFill(Texture_List,frame)
+    #initallFill(Texture_List,frame)
 
+    #step 7
+    refineImage()
