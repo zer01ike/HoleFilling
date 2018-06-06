@@ -1,11 +1,16 @@
 ## TODO LIST :
+2018/5/29: add
+
+- [ ] more efficiency process separation
+
+
 - [x] Warping Process
 - [x] Detph Fill
 - [x] Sprite Update
-    -[ ] Remember the hole location
-- [ ] Image Update
+    -[x] Remember the hole location
+- [x] Image Update
 - [x] Initial Fill
-- [ ] Texture Refine
+- [x] Texture Refine
     
 
 
@@ -19,11 +24,12 @@
 a video with associated depth map
 
 ## steps
-* [step 1](#step-1) : Warping process 
-* [step 2](#step-2) : Depth Fill
-* [step 3](#step-3) : Sprite Update
-* [step 4](#step-4) : Image Update
-* [step 5](#step-5) : Initial Fill 
+* [step 1 : Warping process](#step-1)  
+* [step 2 : Depth Fill](#step-2) 
+* [step 3 : Sprite Update](#step-3)
+* [step 4 : Image Update](#step-4) 
+* [step 5 : Initial Fill ](#step-5) 
+* [step 6 : Texture Refinement](#step-6) 
 
 ## step 1 
 This is the algorithm to generate the a 3D image warping image and it's associated depth map, there have distortion area in both Warpied image and it's associated depth map 
