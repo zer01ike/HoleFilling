@@ -21,7 +21,7 @@ class warping():
         warping_image = np.zeros((height, width, 3), np.uint8)
         warping_depth_image = np.zeros((height, width, 1), np.uint8)
 
-        hole_value =255
+        hole_value =0
 
         #initial the wapring_image and i's associated depth map
         for i in range(0, height):

@@ -25,7 +25,7 @@ saved_update_texture_path = "../DataSet/Sequence/Update/texture/"
 frame = 100
 
 
-def processYUV():
+def processYUV(frame,yuv_depth_path,saved_yuv_depth_path,yuv_texture_path,saved_yuv_texture_path):
     # frame = 100
     yuv_depth = YUV.YUVtools()
     yuv_depth.setParamters(768, 1024, frame)
@@ -37,7 +37,7 @@ def processYUV():
     yuv_texture.ReadYUV420(yuv_texture_path)
     yuv_texture.WriteImage(saved_yuv_texture_path)
 
-def ReadImagetoList():
+def ReadImagetoList(frame):
     Depth_List = []
     Texture_List = []
     for i in range(0,frame):
@@ -45,7 +45,7 @@ def ReadImagetoList():
         Texture_List.append(str(i)+".bmp")
     return Depth_List, Texture_List
 
-def processwarping(Depth_List,Texture_List,frame):
+def processwarping(Depth_List,Texture_List,frame,saved_yuv_depth_path,saved_yuv_texture_path,saved_wapring_depth_path,saved_wapring_texture_path):
     for i in range(0,frame):
         DepthedImg = cv2.imread(saved_yuv_depth_path+Depth_List[i], 0)
         TexturedImg = cv2.imread(saved_yuv_texture_path+Texture_List[i], 1)
@@ -119,8 +119,23 @@ def refineImage():
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
+def generate_daset():
+    yuv_depth_path = "J:/DataSet/BookArrival_Cam08/yuv/depth/BookArrival_Cam08_Depth.yuv"
+    yuv_texture_path = "J:/DataSet/BookArrival_Cam08/yuv/Texture/BookArrival_Cam08.yuv"
+    saved_yuv_depth_path = "J:/DataSet/BookArrival_Cam08/Original/depth/"
+    saved_yuv_texture_path = "J:/DataSet/BookArrival_Cam08/Original/texture/"
+    saved_wapring_texture_path = "J:/DataSet/BookArrival_Cam08/Warped/"
+    saved_wapring_depth_path = "J:/DataSet/BookArrival_Cam08/Warped/depth/"
+    frame = 100
+    Depth_List, Texture_List = ReadImagetoList(frame)
+
+    processYUV(frame,yuv_depth_path,saved_yuv_depth_path,yuv_texture_path,saved_yuv_texture_path)
+    processwarping(Depth_List,Texture_List,frame,saved_yuv_depth_path,saved_yuv_texture_path,saved_wapring_depth_path,saved_wapring_texture_path)
+
+
+
 if __name__ == '__main__':
-    Depth_List, Texture_List = ReadImagetoList()
+    #Depth_List, Texture_List = ReadImagetoList()
     #step 1
     #processYUV()
 
@@ -140,4 +155,5 @@ if __name__ == '__main__':
     #initallFill(Texture_List,frame)
 
     #step 7
-    refineImage()
+    #refineImage()
+    generate_daset()
